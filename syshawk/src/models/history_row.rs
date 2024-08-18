@@ -1,7 +1,8 @@
 use chrono::Utc;
+use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 
-#[derive(FromRow, Debug, Clone)]
+#[derive(FromRow, Debug, Clone, Serialize, Deserialize)]
 pub struct HistoryRow {
     pub probe_id: String,
     pub system_info: String,

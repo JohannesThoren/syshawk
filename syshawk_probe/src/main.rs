@@ -11,7 +11,7 @@ use syshawklib::sysinfo::SystemExt;
 pub fn cpu() -> Json<syshawklib::cpu::Cpu> {
     let mut sys = syshawklib::sysinfo::System::new_all();
     let cpu = syshawklib::cpu::Cpu::collect(&mut sys);
-    return Json(cpu);
+    return Json(cpu.unwrap());
 }
 
 #[get("/mem")]

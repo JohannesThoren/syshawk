@@ -60,7 +60,7 @@ pub async fn sys_info_card(id: String, pool: &SqlitePool) -> Node {
                 ]).class("cpu-info".to_string()),
             ]).attributes(vec![
                 Attribute { key: "hx-get".to_string(), value: format!("/ssr/sysinfo/{}", id.clone()) },
-                Attribute { key: "hx-trigger".to_string(), value: "every 5s".to_string() },
+                Attribute { key: "hx-trigger".to_string(), value: "every 1s".to_string() },
             ]);
         }
         Err(_) => {

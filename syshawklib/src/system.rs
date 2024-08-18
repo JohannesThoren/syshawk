@@ -21,7 +21,7 @@ impl System {
         let hostname = sys.host_name().unwrap_or_else(|| "Unknown".to_string());
         let uptime = sys.uptime();
 
-        let cpu = cpu::Cpu::collect(&mut sys);
+        let cpu = cpu::Cpu::collect(&mut sys).unwrap();
         let memory = memory::Memory::collect(&mut sys);
 
         System {
