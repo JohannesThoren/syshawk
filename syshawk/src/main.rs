@@ -12,9 +12,9 @@ extern crate rocket;
 use crate::probe::probe::handle_probes;
 use anyhow::Result;
 use rocket::{fs, http::Method, Ignite, Rocket};
+use rocket_cors::{AllowedOrigins, CorsOptions};
 use sqlx::SqlitePool;
 use std::thread;
-use rocket_cors::{AllowedOrigins, CorsOptions};
 
 #[rocket::main]
 async fn main() -> Result<()> {
@@ -49,7 +49,11 @@ async fn main() -> Result<()> {
         )
         .mount(
             "/api/v1",
-            routes![routes::api::sysinfo_by_id_api, routes::api::sysinfo_api],
+            routes![
+                routes::api::sysinfo_by_id_api,
+                routes::api::sysinfo_api,
+                routes::api::sysinfo_20_latest_by_id_api
+            ],
         )
         .manage(pool)
         .launch()
