@@ -1,0 +1,9 @@
+[package]
+name = "syshawkprobe"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cupid="*"
+rocket= { version = "*", features = ["json"] }
+syshawklib={path="../syshawklib"}

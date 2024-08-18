@@ -1,0 +1,7 @@
+{
+  "probes": [
+    "http://localhost:8021",
+    "http://loclhost:8000",
+    "http://localhost:8022"
+  ]
+}

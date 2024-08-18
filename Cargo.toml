@@ -1,0 +1,4 @@
+[workspace]
+members = [ "syshawklib", "syshawk_probe", "syshawk", "syshawk_templating"]
+resolver = "2"
+default-members = ["syshawk"]

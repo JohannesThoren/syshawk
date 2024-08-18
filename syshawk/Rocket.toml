@@ -1,0 +1,3 @@
+[debug]
+log_level = "normal"
+port = 8080
