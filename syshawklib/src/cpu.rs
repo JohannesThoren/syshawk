@@ -2,6 +2,7 @@ use std::{thread, time::Duration};
 
 use serde::{Deserialize, Serialize};
 use sysinfo::{CpuExt, SystemExt};
+use sysinfo;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Cpu {
@@ -19,7 +20,7 @@ impl Cpu {
         sys.refresh_cpu();
 
         // Sleep for a short duration to allow the system to gather usage data.
-        thread::sleep(Duration::from_millis(100));
+        thread::sleep(sysinfo::System::MINIMUM_CPU_UPDATE_INTERVAL);
 
         // Refresh again to get accurate CPU usage data.
         sys.refresh_cpu();
