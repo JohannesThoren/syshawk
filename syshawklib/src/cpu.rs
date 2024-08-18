@@ -18,7 +18,7 @@ impl Cpu {
     pub fn collect(sys: &mut sysinfo::System) -> Option<Cpu> {
         sys.refresh_cpu();
 
-        thread::sleep(Duration::from_millis(100));
+        thread::sleep(sysinfo::System::MINIMUM_CPU_UPDATE_INTERVAL);
 
         sys.refresh_cpu();
 
