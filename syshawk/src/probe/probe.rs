@@ -4,11 +4,8 @@ use crate::models::probe::Probe;
 use crate::models::status::Status;
 use anyhow::Result;
 use rocket::tokio::time;
-use serde::{Deserialize, Serialize};
-use sqlx::{FromRow, SqlitePool};
-use std::thread;
+use sqlx::SqlitePool;
 use syshawklib;
-use syshawklib::system::System;
 use tokio::runtime::Runtime;
 
 pub fn handle_probes() -> Result<()> {

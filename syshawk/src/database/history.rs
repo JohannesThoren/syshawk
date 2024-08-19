@@ -1,9 +1,6 @@
 use crate::models::history_row::HistoryRow;
 use anyhow::Result;
-use rocket::log::private::log;
 use sqlx::SqlitePool;
-use syshawklib::cpu::Cpu;
-use syshawklib::memory::Memory;
 use syshawklib::system::System;
 
 pub async fn insert_history(

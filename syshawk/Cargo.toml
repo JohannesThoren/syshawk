@@ -1,11 +1,11 @@
 [package]
-name = "syshawkwatcher"
+name = "syshawk"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 anyhow = "1.0.86"
-chrono = { version = "0.4.38" , features = ["serde"] }
+chrono = { version = "0.4.38", features = ["serde"] }
 reqwest = { version = "0.12.5", features = ["json"] }
 rocket = { version = "0.5.1", features = ["json"] }
 serde = { version = "1.0.208", features = ["derive"] }
@@ -15,4 +15,3 @@ syshawklib = { path = "../syshawklib" }
 tokio = { version = "1.39.2", features = ["full"] }
 dotenvy = "0.15.7"
 rocket_cors = "0.6.0"
-

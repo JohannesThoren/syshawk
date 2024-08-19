@@ -12,6 +12,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.51.23",
     "axios": "^1.7.4",
+    "object-hash": "^3.0.0",
     "react": "^18.3.1",
     "react-collapse": "^5.1.1",
     "react-dom": "^18.3.1",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@types/object-hash": "^3.0.6",
     "@types/react": "^18.3.3",
     "@types/react-collapse": "^5.0.4",
     "@types/react-dom": "^18.3.0",

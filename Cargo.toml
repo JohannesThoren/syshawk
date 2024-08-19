@@ -1,4 +1,4 @@
 [workspace]
-members = [ "syshawklib", "syshawk_probe", "syshawk"]
+members = ["syshawklib", "syshawk_probe", "syshawk"]
 resolver = "2"
-default-members = ["syshawk"]
+default-members = ["syshawk", "syshawk_probe"]

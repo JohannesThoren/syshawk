@@ -2410,6 +2410,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a7065abeca94b6a8a577f9bd45aa0867a2238b74e8eb67cf10d492bc39351394"
 
 [[package]]
+name = "syshawk"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "dotenvy",
+ "reqwest",
+ "rocket",
+ "rocket_cors",
+ "serde",
+ "serde_json",
+ "sqlx",
+ "syshawklib",
+ "tokio",
+]
+
+[[package]]
 name = "syshawklib"
 version = "0.1.0"
 dependencies = [
@@ -2425,23 +2442,6 @@ dependencies = [
  "cupid",
  "rocket",
  "syshawklib",
-]
-
-[[package]]
-name = "syshawkwatcher"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "chrono",
- "dotenvy",
- "reqwest",
- "rocket",
- "rocket_cors",
- "serde",
- "serde_json",
- "sqlx",
- "syshawklib",
- "tokio",
 ]
 
 [[package]]

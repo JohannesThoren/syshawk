@@ -28,12 +28,12 @@ export default class SysInfo {
     });
   }
 
-  static useSysinfoHistory(id: string) {
+  static useSysinfoHistory(id: string, limit: number = 10) {
     return useQuery({
-      queryKey: ["sysinfo", id, "history"],
+      queryKey: ["sysinfo", id, "history", limit],
       queryFn: () =>
         axios
-          .get(`${BASE_URL}sysinfo/${id}/history`)
+          .get(`${BASE_URL}sysinfo/${id}/history/${limit}`)
           .then((res) => res.data as HistoryRowReturnData[]),
        refetchInterval: SysInfo.sysInfoRefetchInterval
     });

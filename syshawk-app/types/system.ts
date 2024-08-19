@@ -3,6 +3,7 @@ export type System = {
     uptime: number;
     cpu: Cpu;
     memory: Memory;
+    fs: Fs[];
 }
 
 export type Cpu = {
@@ -20,4 +21,13 @@ export type Memory = {
     available_memory: number;
     swap_used: number;
     swap_total: number;
+}
+
+export type Fs = {
+    drive_name: string;
+    mount_point: string;
+    fs_type: string;
+    size: number;
+    used: number;
+    is_removable: boolean;
 }

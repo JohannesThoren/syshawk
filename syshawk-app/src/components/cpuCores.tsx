@@ -3,10 +3,27 @@ import { Cpu } from "../../types/system";
 import { HiCube, HiCubeTransparent } from "react-icons/hi2";
 import { HistoryRowReturnData } from "../../types/sysinfo";
 
-import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
+import {
+  CartesianGrid,
+  Cell,
+  Legend,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { useMemo, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { Collapse } from "react-collapse";
+import objectHash from "object-hash";
+
+function formatCoreValue(num: number) {
+  return parseFloat(num.toPrecision(3));
+}
 
 export default function CpuCores({
   cpu,
@@ -16,7 +33,7 @@ export default function CpuCores({
   history: HistoryRowReturnData[];
 }) {
   const getData = (num: number) => {
-    const normal = parseFloat(num.toPrecision(3));
+    const normal = formatCoreValue(num);
     return [
       { name: "Used", value: normal },
       { name: "Free", value: 100 - normal },
@@ -76,7 +93,7 @@ export default function CpuCores({
                     {data.map((entry, index) => (
                       <Cell
                         key={`cell-${index}`}
-                        fill={entry.name === "Used" ? "#d88495" : "#cccccc50"}
+                        fill={entry.name === "Used" ? "#047857" : "#cccccc50"}
                       />
                     ))}
                   </Pie>
@@ -100,10 +117,41 @@ export default function CpuCores({
 }
 
 function CpuHistory({ history }: { history: HistoryRowReturnData[] }) {
+  const [cpuCount, setCpuCount] = useState(0);
   const [open, setOpen] = useState(false);
+
+  const cpuNames = useMemo(() => {
+    return Array.from({ length: cpuCount }).map((_, i) => `CPU ${i + 1}`);
+  }, [cpuCount]);
+
+  const cpuColors = useMemo(
+    () =>
+      Object.fromEntries(
+        cpuNames.map((name) => [name, `#${objectHash(name).slice(1, 7)}`])
+      ),
+    [cpuCount]
+  );
+
   const data = useMemo(() => {
-    const cores = history.map(row => row.system_info?.cpu.per_core_usage).flat();
-    
+    if (history.length === 0) return [];
+    const foundCpuCount =
+      history[0].system_info?.cpu.per_core_usage.length || 0;
+    if (foundCpuCount !== cpuCount) {
+      setCpuCount(foundCpuCount);
+    }
+
+    return history.map((row) => {
+      const perCoreUsage = row.system_info?.cpu.per_core_usage || [];
+      const data = perCoreUsage.reduce(
+        (acc: any, usage, index) => {
+          acc[cpuNames[index]] = formatCoreValue(usage || 0);
+          return acc;
+        },
+        { name: row.time_stamp }
+      );
+
+      return data;
+    });
   }, [history]);
 
   return (
@@ -118,26 +166,31 @@ function CpuHistory({ history }: { history: HistoryRowReturnData[] }) {
           style={{ transform: open ? "rotate(180deg)" : "" }}
         />
       </button>
-      {/* <Collapse isOpened={open}>
+      <Collapse isOpened={open}>
         <div className="max-w-full w-full h-[500px]">
           <ResponsiveContainer width="100%" height={"100%"}>
             <LineChart width={500} height={400} data={data}>
               <Legend />
+              <CartesianGrid strokeDasharray="4 4" />
               <XAxis
                 dataKey="name"
                 tickFormatter={(value) => new Date(value).toLocaleTimeString()}
               />
-              <YAxis tickFormatter={formatBytes} />
-              <Tooltip formatter={formatBytes} />
-              <Line strokeWidth={3} dataKey="usedRam" stroke="#FFC107" />
-              <Line strokeWidth={3} dataKey="avalibleRam" stroke="#8BC34A" />
-              <Line strokeWidth={3} dataKey="swapUsed" stroke="#03A9F4" />
-              <Line strokeWidth={3} dataKey="swapTotal" stroke="#FF69B4" />
-            </LineChart> 
+              <YAxis tickFormatter={(value) => `${value}%`} />
+              <Tooltip />
+              {Array.from({ length: cpuCount }).map((_, i) => (
+                <Line
+                  key={cpuNames[i]}
+                  type="monotone"
+                  dataKey={cpuNames[i]}
+                  stroke={cpuColors[cpuNames[i]]}
+                  strokeWidth={2}
+                />
+              ))}
+            </LineChart>
           </ResponsiveContainer>
         </div>
       </Collapse>
-      */}
     </div>
   );
 }

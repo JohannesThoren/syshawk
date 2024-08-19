@@ -1,13 +1,10 @@
 use crate::database::history::fetch_n_latest_by_id;
 use crate::database::{history::fetch_latest_by_id, probe::fetch_probes};
-use crate::models::history_row::{HistoryRow, HistoryRowReturnData};
-use chrono::{DateTime, Utc};
+use crate::models::history_row::HistoryRowReturnData;
 use rocket::response::content::RawJson;
 use rocket::response::Redirect;
 use rocket::State;
-use serde::{Deserialize, Serialize};
 use sqlx::SqlitePool;
-use syshawklib::system;
 
 #[get("/sysinfo/<id>")]
 pub async fn sysinfo_by_id_api(
@@ -41,12 +38,13 @@ pub async fn sysinfo_api(pool: &State<SqlitePool>) -> Result<RawJson<String>, Re
     ));
 }
 
-#[get("/sysinfo/<id>/history")]
-pub async fn sysinfo_20_latest_by_id_api(
+#[get("/sysinfo/<id>/history/<n>")]
+pub async fn sysinfo_n_latest_by_id_api(
     id: &str,
     pool: &State<SqlitePool>,
+    n: i64
 ) -> Result<RawJson<String>, Redirect> {
-    let res = match fetch_n_latest_by_id(20, id.to_string(), pool.inner()).await {
+    let res = match fetch_n_latest_by_id(n, id.to_string(), pool.inner()).await {
         Ok(r) => r,
         Err(_) => return Err(Redirect::to("/error/500.html")),
     };

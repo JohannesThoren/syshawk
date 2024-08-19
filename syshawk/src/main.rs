@@ -3,13 +3,12 @@ mod models;
 mod probe;
 mod routes;
 
-
 #[macro_use]
 extern crate rocket;
 
 use crate::probe::probe::handle_probes;
 use anyhow::Result;
-use rocket::{fs, http::Method, Ignite, Rocket};
+use rocket::{fs, http::Method};
 use rocket_cors::{AllowedOrigins, CorsOptions};
 use sqlx::SqlitePool;
 use std::thread;
@@ -41,7 +40,7 @@ async fn main() -> Result<()> {
             routes![
                 routes::api::sysinfo_by_id_api,
                 routes::api::sysinfo_api,
-                routes::api::sysinfo_20_latest_by_id_api
+                routes::api::sysinfo_n_latest_by_id_api
             ],
         )
         .manage(pool)
