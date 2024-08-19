@@ -2,9 +2,7 @@ mod database;
 mod models;
 mod probe;
 mod routes;
-mod templates;
 
-use syshawk_templating;
 
 #[macro_use]
 extern crate rocket;
@@ -37,16 +35,7 @@ async fn main() -> Result<()> {
 
     rocket::build()
         .attach(cors)
-        .mount("/", fs::FileServer::from("./page"))
-        .mount(
-            "/ssr",
-            routes![
-                routes::ssr::home,
-                routes::ssr::header,
-                routes::ssr::sysinfo,
-                routes::ssr::sysinfo_id
-            ],
-        )
+        .mount("/", fs::FileServer::from("./html"))
         .mount(
             "/api/v1",
             routes![

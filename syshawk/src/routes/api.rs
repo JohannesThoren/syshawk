@@ -1,7 +1,6 @@
 use crate::database::history::fetch_n_latest_by_id;
 use crate::database::{history::fetch_latest_by_id, probe::fetch_probes};
 use crate::models::history_row::{HistoryRow, HistoryRowReturnData};
-use crate::templates::sysinfo;
 use chrono::{DateTime, Utc};
 use rocket::response::content::RawJson;
 use rocket::response::Redirect;
