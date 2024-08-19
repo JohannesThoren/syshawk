@@ -1,8 +1,8 @@
-use std::{thread, time::Duration};
+use std::thread;
 
 use serde::{Deserialize, Serialize};
 use sysinfo;
-use sysinfo::{CpuExt, System, SystemExt};
+use sysinfo::{CpuExt, SystemExt};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Cpu {
@@ -50,8 +50,6 @@ impl Cpu {
             0
         };
 
-        // Convert average frequency from Hz to MHz
-        let average_frequency_mhz = average_frequency / 1_000_000;
 
         Some(Cpu {
             name,

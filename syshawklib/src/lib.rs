@@ -3,8 +3,8 @@ pub use sysinfo;
 pub mod cpu;
 pub mod memory;
 pub mod system;
-mod process;
-
+pub mod process;
+pub mod fs;
 
 #[cfg(test)]
 mod tests {

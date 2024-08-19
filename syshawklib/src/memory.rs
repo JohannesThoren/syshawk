@@ -1,6 +1,5 @@
-use anyhow::Result;
 use serde::{Deserialize, Serialize};
-use sysinfo::{System, SystemExt};
+use sysinfo::SystemExt;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Memory {
     pub total_memory: u64,
